@@ -81,6 +81,8 @@ usage: eden command [options] source_files
 Valid command options:
 colorize - display source file with syntax highlighting
 rewrite - rewrite the source file in place with adjusted formatting
+filter - write to STDOUT
+
 
 Options:
 BANNER
@@ -102,7 +104,7 @@ end
 
 cmd = cmd.downcase.to_sym
 
-unless [:colorize, :analyse, :rewrite, :debug].include?(cmd)
+unless [:colorize, :analyse, :rewrite, :debug, :filter ].include?(cmd)
   puts opts
   exit
 end
@@ -123,6 +125,7 @@ begin
     when :rewrite then sf.rewrite!( options[:backup] )
     when :analyse then analyse( sf )
     when :debug then debug( sf )
+    when :filter then sf.rewrite
     end
   end
 rescue => e

@@ -27,6 +27,12 @@ module Eden
     def each_line
       @lines.each { |l| yield l }
     end
+    
+    def rewrite
+      each_line do |l|
+        STDOUT.write l.joined_tokens
+      end    
+    end
 
     def rewrite!( make_backup = false )
       if make_backup
